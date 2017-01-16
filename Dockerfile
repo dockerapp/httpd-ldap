@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y libldap2-dev
 
 RUN     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap
-
+RUN	cp /etc/apache2/mods-available/*ldap* /etc/apache2/mods-enabled
 
 RUN 	mkdir /etc/apache2/conf.d && \
 	echo 'IncludeOptional conf.d/*.conf' >> /etc/apache2/apache2.conf 
