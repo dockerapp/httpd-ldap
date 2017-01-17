@@ -4,14 +4,10 @@ RUN apt-get update && apt-get install -y libldap2-dev
 
 RUN     docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu/ && \
     docker-php-ext-install ldap
-RUN	cp /etc/apache2/mods-available/*ldap* /etc/apache2/mods-enabled && \
-	cp /etc/apache2/mods-available/headers.load /etc/apache2/mods-enabled
+RUN	a2enmod ldap && a2enmod authnz_ldap && a2enmod headers
 
 RUN 	mkdir /etc/apache2/conf.d && \
 	echo 'IncludeOptional conf.d/*.conf' >> /etc/apache2/apache2.conf 
-#&& \
-#	sed -i 's/^#LoadModule authnz_ldap_module/LoadModule authnz_ldap_module/' /usr/local/apache2/conf/httpd.conf && \
-#	sed -i 's/^#LoadModule ldap_module/LoadModule ldap_module/' /usr/local/apache2/conf/httpd.conf
 
 EXPOSE 80
 
